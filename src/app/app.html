@@ -1,2 +1,23 @@
+
 <h1>Gestionnaire de Contacts</h1>
-<app-formulaire-contact></app-formulaire-contact>
+<app-formulaire-contact (contactSauvegarde)="ajouterContact($event)"></app-formulaire-contact>
+<app-liste-contacts [contacts]="mesContacts"></app-liste-contacts>
+
+<!--
+<div>
+  <h2>Liste des Contacts ({{ mesContacts.length }})</h2>
+
+  <p *ngIf="mesContacts.length === 0">
+    Aucun contact pour le moment.
+  </p>
+
+  <ul *ngIf="mesContacts.length > 0">
+    <li *ngFor="let c of mesContacts; let i = index">
+      <span>{{ i + 1 }}.</span>
+      <strong> {{ c.nom }} </strong>
+      — {{ c.email }}
+      <small *ngIf="c.telephone"> | {{ c.telephone }}</small>
+    </li>
+  </ul>
+</div>
+-->

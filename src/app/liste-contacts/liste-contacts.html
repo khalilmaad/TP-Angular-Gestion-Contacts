@@ -1,1 +1,17 @@
-<p>liste-contacts works!</p>
+<!-- liste-contacts.component.html -->
+<div>
+    <h2>Liste des Contacts ({{ contacts.length }})</h2>
+    <!-- Message si liste vide -->
+    <p *ngIf="contacts.length === 0">
+        Aucun contact pour le moment.
+    </p>
+    <!-- Affichage si liste non vide -->
+    <ul *ngIf="contacts.length > 0">
+        <li *ngFor="let c of contacts; let i = index">
+            <span>{{ i + 1 }}.</span>
+            <strong> {{ c.nom }} </strong>
+            — {{ c.email }}
+            <small *ngIf="c.telephone"> | {{ c.telephone }}</small>
+        </li>
+    </ul>
+</div>

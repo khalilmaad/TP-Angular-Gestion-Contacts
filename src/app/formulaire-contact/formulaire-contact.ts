@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Contact } from '../contact.interface';
 
 @Component({
   selector: 'app-formulaire-contact',
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './formulaire-contact.css',
 })
 export class FormulaireContact {
-  titre: string = 'Formulaire de contact';
+ /* titre: string = 'Formulaire de contact';
   version: string = 'Angular 20';
   // Propriétés pour l'interpolation
   prenom: string = 'Ahmed';
@@ -47,8 +48,31 @@ export class FormulaireContact {
 
 
   // Propriétés liées au formulaire
+  age: number = 0;*/
   nom: string = '';
   email: string = '';
   telephone: string = '';
-  age: number = 0;
+
+  // Déclarer l'événement à émettre
+  @Output() contactSauvegarde = new EventEmitter<Contact>();
+  sauvegarder(): void {
+    // Vérifier que les champs obligatoires sont remplis
+
+    
+    if (this.nom.trim() && this.email.trim()) {
+      // Émettre le contact vers le parent
+      this.contactSauvegarde.emit({
+        nom: this.nom,
+        email: this.email,
+        telephone: this.telephone
+
+      });
+      // Réinitialiser le formulaire
+      this.nom = this.email = this.telephone = '';
+    } else {
+      alert('Veuillez remplir le nom et l\'email.');
+    }
+  }
 }
+
+
