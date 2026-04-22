@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormulaireContact } from './formulaire-contact/formulaire-contact';
 import { ListeContacts } from './liste-contacts/liste-contacts';
 import { Contact } from './contact.interface';
@@ -10,12 +10,24 @@ import { Contact } from './contact.interface';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   title = 'gestion-contacts';
   mesContacts: Contact[] = [];
 
+  // constructor : injection uniquement (vide ici)
+  constructor() { }
+  // ngOnInit : initialisation des données
+  ngOnInit(): void {
+    // Pré-remplir avec 2 contacts démo
+    this.mesContacts = [
+      { nom: 'Ali Benali', email: 'ali@example.com', telephone: '0600000001' },
+      { nom: 'Sara Alami', email: 'sara@example.com', telephone: '0600000002' },
+    ];
+    console.log('AppComponent initialisé avec', this.mesContacts.length, 'contacts');
+  }
+
   ajouterContact(contact: Contact): void {
-    this.mesContacts.push(contact);
+    this.mesContacts = [...this.mesContacts, contact]; // Nouvelle référence !
     console.log('Contact ajouté :', contact);
   }
 }

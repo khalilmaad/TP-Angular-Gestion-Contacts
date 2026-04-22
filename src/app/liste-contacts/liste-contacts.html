@@ -15,3 +15,9 @@
         </li>
     </ul>
 </div>
+
+<!-- Ajouter dans liste-contacts.component.html -->
+<p *ngIf="nombreAjouts > 0">
+{{ nombreAjouts }} contact(s) ajouté(s) depuis le chargement
+</p>
+<small>Liste chargée à : {{ dateChargement }}</small>
