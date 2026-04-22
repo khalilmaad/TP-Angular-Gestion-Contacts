@@ -1,6 +1,82 @@
 <!-- formulaire-contact.html -->
 <div>
-<h2>{{ titre }}</h2>
-<p>Version : {{ version }}</p>
-<p>Bonjour depuis le composant formulaire-contact!</p>
+    <h2>{{ titre }}</h2>
+    <p>Version : {{ version }}</p>
+    <p>Bonjour depuis le composant formulaire-contact!</p>
 </div>
+
+<!-- Partie A : Interpolation -->
+<section>
+    <h3>Interpolation</h3>
+    <!-- 1. Afficher le prénom -->
+    <p>Bonjour {{ prenom }} !</p>
+    <!-- 2. Calcul arithmétique -->
+    <p>Note sur 20 : {{ note }} / 20</p>
+    <!-- 3. Méthode JavaScript dans l'expression -->
+    <p>Prénom en majuscules : {{ prenom.toUpperCase() }}</p>
+    <!-- 4. Opérateur ternaire -->
+    <p>Réussite : {{ note >= 10 ? '✅ Admis' : '❌ Refusé' }}</p>
+    <!-- 5. Propriété d'un tableau -->
+    <p>Nombre de notes : {{ notes.length }}</p>
+    <!-- 6. Date du jour -->
+    <p>Date : {{ dateAujourdhui }}</p>
+</section>
+
+<!-- Partie B : Property Binding -->
+<section>
+    <h3>Property Binding</h3>
+    <!-- Lier src d'une image -->
+    <img [src]="imageUrl" [alt]="'Photo de ' + prenom" width="200">
+    <!-- Bouton dynamiquement actif/inactif -->
+    <button [disabled]="!boutonActif">Bouton contrôlé</button>
+    <!-- Pour tester : changez boutonActif à true dans le .ts -->
+    <!-- Style dynamique -->
+    <p [style.fontSize.px]="tailleTexte">
+        Ce texte a une taille dynamique de {{ tailleTexte }}px
+    </p>
+    <!-- Classe CSS dynamique -->
+    <div [class]="classeCSS">
+        Bloc avec classe CSS dynamique : {{ classeCSS }}
+    </div>
+</section>
+
+
+<!-- Partie C : Event Binding -->
+<section>
+    <h3>Event Binding</h3>
+    <!-- Compteur avec 3 boutons -->
+    <button (click)="decrementer()">-</button>
+    <span> {{ compteur }} </span>
+    <button (click)="incrementer()">+</button>
+    <button (click)="reinitialiser()">Reset</button>
+    <!-- Passer un paramètre à la méthode -->
+    <br><br>
+    <button (click)="changerCouleur('rouge')">Rouge</button>
+    <button (click)="changerCouleur('bleu')">Bleu</button>
+    <button (click)="changerCouleur('vert')">Vert</button>
+    <p>Couleur choisie : {{ couleurBouton }}</p>
+    <!-- Récupérer l'événement $event -->
+    <input (keyup)="onFrappe($event)" placeholder="Tapez quelque chose...">
+    <p>Vous écrivez : {{ texteInput }}</p>
+</section>
+
+
+<!-- Partie D : Two-Way Binding -->
+<section>
+    <h3>Two-Way Binding — Aperçu en temps réel</h3>
+    <input [(ngModel)]="nom" placeholder="Nom complet">
+    <input [(ngModel)]="email" type="email" placeholder="Adresse email">
+    <input [(ngModel)]="telephone" placeholder="Téléphone">
+    <input [(ngModel)]="age" type="number" placeholder="Âge">
+    <!-- Aperçu en temps réel -->
+    <div>
+        <h4>Aperçu :</h4>
+        <p><strong>{{ nom }}</strong></p>
+        <p>{{ email }} | {{ telephone }}</p>
+        <p>Age : {{ age }} ans</p>
+        <!-- Bonus : afficher uniquement si nom rempli -->
+        <p *ngIf="nom.length > 0">
+            Bonjour {{ nom }}, votre saisie est en cours !
+        </p>
+    </div>
+</section>
