@@ -1,16 +1,36 @@
 // liste-contacts.ts
-import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, OnInit, OnChanges, OnDestroy, EventEmitter, SimpleChanges } from '@angular/core';
+import { CommonModule, } from '@angular/common';
 import { Contact } from '../contact.interface';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-liste-contacts',
   standalone: true,
-  imports: [CommonModule], // Nécessaire pour *ngIf et *ngFor
+  imports: [CommonModule, FormsModule], // Nécessaire pour *ngIf et *ngFor
   templateUrl: './liste-contacts.html',
 })
 export class ListeContacts implements OnInit, OnChanges, OnDestroy {
+  @Output() contactSupprime = new EventEmitter<number>();
   // Reçoit le tableau de contacts depuis le parent
   @Input() contacts: Contact[] = [];
+
+  supprimer(index: number): void {
+    if (confirm('Confirmer la suppression ?')) {
+      this.contactSupprime.emit(index);
+    }
+  }
+  // liste-contacts.component.ts
+  recherche: string = '';
+
+  get contactsFiltres(): Contact[] {
+    if (!this.recherche.trim()) return this.contacts;
+    const terme = this.recherche.toLowerCase();
+    return this.contacts.filter(c =>
+      c.nom.toLowerCase().includes(terme) ||
+      c.email.toLowerCase().includes(terme)
+    );
+  }
+
   dateChargement: string = '';
   // constructor : UNIQUEMENT pour l'injection de services
   constructor() {

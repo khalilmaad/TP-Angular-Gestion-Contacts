@@ -1,7 +1,12 @@
+<!-- app.component.html -->
+<header>
+  <h1>🔍 Gestionnaire de Contacts</h1>
+  <span>{{ messageStatut }}</span>
+</header>
 
 <h1>Gestionnaire de Contacts</h1>
 <app-formulaire-contact (contactSauvegarde)="ajouterContact($event)"></app-formulaire-contact>
-<app-liste-contacts [contacts]="mesContacts"></app-liste-contacts>
+<app-liste-contacts [contacts]="mesContacts" (contactSupprime)="supprimerContact($event)"></app-liste-contacts>
 
 <!--
 <div>

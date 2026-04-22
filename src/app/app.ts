@@ -30,4 +30,19 @@ export class App implements OnInit {
     this.mesContacts = [...this.mesContacts, contact]; // Nouvelle référence !
     console.log('Contact ajouté :', contact);
   }
+
+  supprimerContact(index: number): void {
+    this.mesContacts = this.mesContacts.filter((_, i) => i !== index);
+    console.log(`Contact ${index} supprimé. Reste : ${this.mesContacts.length}`);
+  }
+
+  // app.component.ts
+  get nombreContacts(): number {
+    return this.mesContacts.length;
+  }
+  get messageStatut(): string {
+    if (this.mesContacts.length === 0) return 'Carnet vide';
+    if (this.mesContacts.length === 1) return '1 contact';
+    return `${this.mesContacts.length} contacts`;
+  }
 }
