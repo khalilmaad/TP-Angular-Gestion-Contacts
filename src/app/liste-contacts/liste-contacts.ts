@@ -51,6 +51,7 @@ export class ListeContacts implements OnInit, OnChanges, OnDestroy {
   }
 
   nombreAjouts: number = 0;
+  nombreSuppresions: number = 0;
   // Appelé à CHAQUE fois que contacts[] change
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['contacts']) {
@@ -61,7 +62,8 @@ export class ListeContacts implements OnInit, OnChanges, OnDestroy {
       console.log(' Premier appel ?', premier);
       console.log(' Avant :', avant?.length ?? 0, 'contact(s)');
       console.log(' Après :', apres?.length ?? 0, 'contact(s)');
-      if (!premier) this.nombreAjouts++;
+      if (!premier && apres?.length > avant?.length) this.nombreAjouts++;
+      if (!premier && apres?.length < avant?.length) this.nombreSuppresions++;
     }
   }
 }
